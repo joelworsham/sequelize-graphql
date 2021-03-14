@@ -1,7 +1,7 @@
 const { GraphQLScalarType } = require('graphql');
 const { GraphQLError } = require('graphql/error');
 const { Kind } = require('graphql/language');
-const formatDate = require('../../util/date/formatDate');
+const moment = require('moment');
 
 /**
  * GraphQL custom Scalar type: DateTime
@@ -29,7 +29,7 @@ module.exports = new GraphQLScalarType({
     if (Number.isNaN(value.getTime())) {
       throw new TypeError('Field error: value is an invalid Date');
     }
-    return formatDate(value, 'WITH_TIME');
+    return moment(value).format('MM/DD/YYYY HH:mm:ss:SSS')
   },
 
   /**
