@@ -1,4 +1,4 @@
-const log = require('../../lib/log');
+const log = require('@joelworsham/log');
 
 /**
  * Deletes an item from the database via a Sequelize Model.

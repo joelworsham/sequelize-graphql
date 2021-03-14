@@ -1,4 +1,4 @@
-const log = require('../../lib/log');
+const log = require('@joelworsham/log');
 
 /**
  * Creates an item in the database via a Sequelize Model.

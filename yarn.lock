@@ -486,6 +486,14 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@joelworsham/log@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@joelworsham/log/-/log-1.0.0.tgz#e41c42311b15c00ec306bb933210871f24ef8c45"
+  integrity sha512-e5k6jZd5llrxT5Q+J9gkn6FRn+SEWWfWB/CgkW0E+/jg7gGpSKGWZrF/izwF4+4EpIOG+DzWPn/RCh6Cbx65ZQ==
+  dependencies:
+    chalk "^4.1.0"
+    moment "^2.29.1"
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -3417,7 +3425,7 @@ moment-timezone@^0.5.21:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.24.0:
+"moment@>= 2.9.0", moment@^2.24.0, moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==

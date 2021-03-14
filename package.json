@@ -6,10 +6,10 @@
   "authors": [
     "Joel Worsham <joelworsham@gmail.com>"
   ],
-  "scripts": {
-  },
+  "scripts": {},
   "license": "MIT",
   "dependencies": {
+    "@joelworsham/log": "^1.0.0",
     "bcrypt": "^4.0.1",
     "graphql": "^15.0.0",
     "graphql-type-json": "^0.3.2",

@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-const log = require('../../lib/log');
+const log = require('@joelworsham/log');
 
 module.exports = async (parent, associatedItem, association) => {
   const parentModelName = parent._modelOptions.name.singular;

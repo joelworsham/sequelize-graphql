@@ -1,5 +1,5 @@
 const { compare } = require('bcrypt');
-const log = require('../../lib/log');
+const log = require('@joelworsham/log');
 
 /**
  * Encrypts a field securely using bcrypt.
