@@ -1,2 +1,3 @@
-# sequelize-graphql
-Integration between sequelize and graphql
+# Sequelize GraphQL
+
+Provides utilities for Sequelize and GraphQL, and integrates them together.
