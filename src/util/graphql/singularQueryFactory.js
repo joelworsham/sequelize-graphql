@@ -1,32 +1,33 @@
-const { GraphQLInt } = require('graphql');
+const { GraphQLInt, GraphQLNonNull } = require('graphql');
+const singularResolver = require('../../graphql/resolvers/singularResolverFactory');
 
 /**
  * Returns a single query object.
  *
  * @param {Model} Model Sequelize Model to create for
  * @param {GraphQLObjectType} Type Node to create for
- * @param {Function} noneFoundMessage Generates the error message. Is passed the item ID as the
- *                                    param.
+ * @param {Function} findOptions Options to pass through to findByPk()
+ * @param {Object} args Args to use/override.
+ * @param {Boolean} idRequired
  * @returns {Object}
  */
 module.exports = (
   Model,
   Type,
   {
-    noneFoundMessage = (id) => `No exists with the id: ${id}`,
+    findOptions = () => null,
+    args = {},
+    idRequired = true,
   } = {},
 ) => ({
   type: Type,
   args: {
-    id: { type: GraphQLInt },
+    id: {
+      type: idRequired
+        ? GraphQLNonNull(GraphQLInt)
+        : GraphQLInt,
+    },
+    ...args,
   },
-  resolve: async (_, { id }) => {
-    const item = await Model.findByPk(id);
-
-    if (!item) {
-      throw new Error(noneFoundMessage(id));
-    }
-
-    return item;
-  },
+  resolve: singularResolver(Model, { findOptions }),
 });

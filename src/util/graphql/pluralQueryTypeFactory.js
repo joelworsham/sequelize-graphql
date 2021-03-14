@@ -33,16 +33,16 @@ module.exports = (
             cursors: {
               after: endCursor,
               before: startCursor,
-              hasNext: hasNextPage,
-              hasPrevious: hasPreviousPage,
+              hasNext,
+              hasPrevious,
             },
           },
         ) => (
           {
             endCursor,
             startCursor,
-            hasNextPage,
-            hasPreviousPage,
+            hasNext,
+            hasPrevious,
           }
         ),
       },
@@ -73,4 +73,4 @@ module.exports = (
       },
     },
   })
-)
+);

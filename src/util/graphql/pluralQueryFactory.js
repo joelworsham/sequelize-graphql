@@ -1,3 +1,4 @@
+const { GraphQLString } = require('graphql');
 const paginateResolver = require('../../graphql/resolvers/paginateResolverFactory');
 const pluralResolver = require('../../graphql/resolvers/pluralResolverFactory');
 const pluralQueryTypeFactory = require('./pluralQueryTypeFactory');
@@ -11,13 +12,13 @@ const decorateArgsWithPagination = require('./decorateArgsWithPagination');
  * @param {GraphQLInputObjectType} QueryInput Input args object.
  * @param {Object} options? Configurable options
  * @param {String} options.name Optional name to use instead of the Model.name
- * @param {String} options.paginationDirection Direction of pagination [forwards or backwards]
+ * @param {Object} options.args Optional args to pass through
  * @param {String} options.whereArg Key of the "where" arg from the query args.
  * @param {Object} options.nodeFields Extra fields to put on the node wrapper.
- * @param {Function} findMethod Method used to find results on the model.
- * @param {Function} options.noneFoundMessage Generates the error message. Is passed the where
- *                                            state as the param.
- * @param {Boolean} isConnection Defines whether this is or is not a connection.
+ * @param {Function} options.findMethod Method used to find results on the model.
+ * @param {Function} options.findOptions Extra query args to pass to model find method.
+ * @param {Boolean} options.isConnection Defines whether this is or is not a connection.
+ * @param {Function} options.resolver Optional resolver to use.
  * @returns {{args: *, resolve: (function(Object, Object): {
  *            cursors: *, results: *
  *          }), type: GraphQLObjectType<any, any>}}
@@ -28,17 +29,25 @@ module.exports = (
   QueryInput = undefined,
   {
     name = undefined,
-    paginationDirection = undefined,
+    args: extraArgs = {},
     whereArg = undefined,
-    findOptions = () => null,
     nodeFields = {},
     findMethod = undefined,
-    noneFoundMessage = undefined,
+    findOptions = () => null,
     isConnection = false,
     resolver = undefined,
   } = {},
-) => (
-  {
+) => {
+  const args = {
+    order: { type: GraphQLString },
+    orderBy: { type: GraphQLString },
+    filter: { type: GraphQLString },
+    filterBy: { type: GraphQLString },
+    search: { type: GraphQLString },
+    ...extraArgs,
+  };
+
+  return {
     type: pluralQueryTypeFactory(
       Model,
       Type,
@@ -48,14 +57,15 @@ module.exports = (
         nodesName: isConnection ? 'edges' : 'nodes',
       },
     ),
-    args: decorateArgsWithPagination('forwards')(
+    args: decorateArgsWithPagination(
       QueryInput !== undefined
         ? {
           [Model.name.toLowerCase()]: {
             type: QueryInput,
           },
+          ...args,
         }
-        : {},
+        : args,
     ),
     resolve: async (...resolverArgs) => {
       if (resolver) return resolver(...resolverArgs);
@@ -63,11 +73,9 @@ module.exports = (
         return paginateResolver(
           Model,
           {
-            findOptions,
-            paginationDirection,
             whereArg,
-            noneFoundMessage,
             findMethod,
+            findOptions,
           },
         )(...resolverArgs);
       }
@@ -79,5 +87,5 @@ module.exports = (
         },
       )(...resolverArgs);
     },
-  }
-);
+  };
+};
