@@ -6,6 +6,7 @@ module.exports = {
   decodeCursor: require('./util/sequelize/decodeCursor'),
   decorateArgsWithPagination: require('./util/graphql/decorateArgsWithPagination'),
   encodeCursor: require('./util/sequelize/encodeCursor'),
+  encryptField: require('./util/sequelize/encryptField'),
   getTablePropertiesFromModel: require('./util/sequelize/getTablePropertiesFromModel'),
   getTypeConfigFromDbModel: require('./util/graphql/getTypeConfigFromDbModel'),
   getTypeFromSequelizeAttribute: require('./util/graphql/getTypeFromSequelizeAttribute'),

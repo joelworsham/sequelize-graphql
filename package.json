@@ -1,6 +1,6 @@
 {
   "name": "@joelworsham/sequelize-graphql",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Provides utilities for Sequelize and GraphQL, and integrates them together.",
   "main": "src/index.js",
   "authors": [
