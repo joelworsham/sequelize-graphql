@@ -97,7 +97,6 @@ const createArgsFromDbModel = (
                 fields: extraFields,
                 exclude,
                 require,
-                pagination,
               },
             ),
           });
